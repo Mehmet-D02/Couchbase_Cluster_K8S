@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  couchbase-node1:
+    image: couchbase/server:7.6.0
+    hostname: couchbase.node1
+    ports:
+      - "8091-8096:8091-8096"
+      - "11210:11210"
+    environment:
+      COUCHBASE_ADMIN_USERNAME: admin
+      COUCHBASE_ADMIN_PASSWORD: admin123
+    volumes:
+      - couchbase-node1-data:/opt/couchbase/var
+    networks:
+      couchbase_network:
+
+  couchbase-node2:
+    image: couchbase/server:7.6.0
+    hostname: couchbase.node2
+    ports:
+      - "9091-9096:8091-8096"
+      - "11211:11210"
+    environment:
+      COUCHBASE_ADMIN_USERNAME: admin
+      COUCHBASE_ADMIN_PASSWORD: admin123
+    volumes:
+      - couchbase-node2-data:/opt/couchbase/var
+    networks:
+      couchbase_network:
+    depends_on:
+      - couchbase-node1
+
+networks:
+  couchbase_network:
+    driver: overlay
+    attachable: true
+
+volumes:
+  couchbase-node1-data:
+  couchbase-node2-data:
