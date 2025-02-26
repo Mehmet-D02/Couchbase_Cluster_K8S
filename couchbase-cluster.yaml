@@ -28,6 +28,13 @@ spec:
     - data
   buckets:
     managed: true
+  cluster:
+    dataServiceMemoryQuota: 256Mi
+    indexServiceMemoryQuota: 256Mi     
+    queryServiceMemoryQuota: 256Mi    
+    searchServiceMemoryQuota: 256Mi    
+    eventingServiceMemoryQuota: 256Mi 
+    analyticsServiceMemoryQuota: 1024Mi 
   servers:
   - size: 2
     name: all_services
@@ -38,3 +45,10 @@ spec:
     - search
     - eventing
     - analytics
+    resources:
+        requests:
+          cpu: "500m"
+          memory: "2Gi"  
+        limits:
+          cpu: "1"
+          memory: "4Gi"    
